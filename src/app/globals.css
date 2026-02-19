@@ -202,3 +202,357 @@ body {
 }
 
 .input-luxury::placeholder { color: var(--text-muted); }
+
+/* ==================== ELEGANT DECORATIONS ==================== */
+
+/* Floating Gold Particles */
+.particles-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: var(--gold-light);
+  border-radius: 50%;
+  opacity: 0;
+  animation: particle-float 15s infinite;
+  box-shadow: 0 0 6px var(--gold), 0 0 12px var(--gold-light);
+}
+
+.particle:nth-child(1) { left: 10%; animation-delay: 0s; }
+.particle:nth-child(2) { left: 20%; animation-delay: 2s; width: 3px; height: 3px; }
+.particle:nth-child(3) { left: 30%; animation-delay: 4s; }
+.particle:nth-child(4) { left: 40%; animation-delay: 1s; width: 5px; height: 5px; }
+.particle:nth-child(5) { left: 50%; animation-delay: 3s; }
+.particle:nth-child(6) { left: 60%; animation-delay: 5s; width: 2px; height: 2px; }
+.particle:nth-child(7) { left: 70%; animation-delay: 2.5s; }
+.particle:nth-child(8) { left: 80%; animation-delay: 4.5s; width: 6px; height: 6px; }
+.particle:nth-child(9) { left: 90%; animation-delay: 1.5s; }
+.particle:nth-child(10) { left: 15%; animation-delay: 6s; width: 3px; height: 3px; }
+.particle:nth-child(11) { left: 35%; animation-delay: 7s; }
+.particle:nth-child(12) { left: 55%; animation-delay: 8s; width: 4px; height: 4px; }
+.particle:nth-child(13) { left: 75%; animation-delay: 9s; }
+.particle:nth-child(14) { left: 85%; animation-delay: 10s; width: 2px; height: 2px; }
+.particle:nth-child(15) { left: 25%; animation-delay: 11s; }
+
+@keyframes particle-float {
+  0% {
+    transform: translateY(100vh) scale(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.8;
+  }
+  90% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(-100px) scale(1);
+    opacity: 0;
+  }
+}
+
+/* Lace Pattern Border - Top */
+.lace-top {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: 
+    linear-gradient(180deg, rgba(212, 175, 55, 0.15) 0%, transparent 100%),
+    repeating-linear-gradient(
+      90deg,
+      transparent 0px,
+      transparent 10px,
+      rgba(212, 175, 55, 0.1) 10px,
+      rgba(212, 175, 55, 0.1) 11px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      transparent 0px,
+      transparent 10px,
+      rgba(212, 175, 55, 0.08) 10px,
+      rgba(212, 175, 55, 0.08) 11px
+    );
+  mask-image: linear-gradient(180deg, black 30%, transparent 100%);
+  -webkit-mask-image: linear-gradient(180deg, black 30%, transparent 100%);
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Lace Pattern Border - Bottom */
+.lace-bottom {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: 
+    linear-gradient(0deg, rgba(212, 175, 55, 0.15) 0%, transparent 100%),
+    repeating-linear-gradient(
+      90deg,
+      transparent 0px,
+      transparent 10px,
+      rgba(212, 175, 55, 0.1) 10px,
+      rgba(212, 175, 55, 0.1) 11px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      transparent 0px,
+      transparent 10px,
+      rgba(212, 175, 55, 0.08) 10px,
+      rgba(212, 175, 55, 0.08) 11px
+    );
+  mask-image: linear-gradient(0deg, black 30%, transparent 100%);
+  -webkit-mask-image: linear-gradient(0deg, black 30%, transparent 100%);
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Ornate Corner Decorations */
+.ornate-corner {
+  position: fixed;
+  width: 150px;
+  height: 150px;
+  pointer-events: none;
+  z-index: 5;
+  opacity: 0.4;
+}
+
+.ornate-corner--top-left {
+  top: 0;
+  left: 0;
+  background: 
+    radial-gradient(circle at 0% 0%, transparent 30%, var(--gold-dark) 31%, var(--gold-dark) 32%, transparent 33%),
+    radial-gradient(circle at 0% 0%, transparent 40%, rgba(212, 175, 55, 0.3) 41%, rgba(212, 175, 55, 0.3) 42%, transparent 43%);
+}
+
+.ornate-corner--top-right {
+  top: 0;
+  right: 0;
+  background: 
+    radial-gradient(circle at 100% 0%, transparent 30%, var(--gold-dark) 31%, var(--gold-dark) 32%, transparent 33%),
+    radial-gradient(circle at 100% 0%, transparent 40%, rgba(212, 175, 55, 0.3) 41%, rgba(212, 175, 55, 0.3) 42%, transparent 43%);
+}
+
+.ornate-corner--bottom-left {
+  bottom: 0;
+  left: 0;
+  background: 
+    radial-gradient(circle at 0% 100%, transparent 30%, var(--gold-dark) 31%, var(--gold-dark) 32%, transparent 33%),
+    radial-gradient(circle at 0% 100%, transparent 40%, rgba(212, 175, 55, 0.3) 41%, rgba(212, 175, 55, 0.3) 42%, transparent 43%);
+}
+
+.ornate-corner--bottom-right {
+  bottom: 0;
+  right: 0;
+  background: 
+    radial-gradient(circle at 100% 100%, transparent 30%, var(--gold-dark) 31%, var(--gold-dark) 32%, transparent 33%),
+    radial-gradient(circle at 100% 100%, transparent 40%, rgba(212, 175, 55, 0.3) 41%, rgba(212, 175, 55, 0.3) 42%, transparent 43%);
+}
+
+/* Luxurious Frame Border */
+.luxury-frame {
+  position: fixed;
+  inset: 20px;
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  pointer-events: none;
+  z-index: 5;
+}
+
+.luxury-frame::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border: 1px solid rgba(212, 175, 55, 0.15);
+  margin: 10px;
+}
+
+.luxury-frame-corners {
+  position: fixed;
+  inset: 20px;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.luxury-frame-corners::before,
+.luxury-frame-corners::after {
+  content: '';
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border: 2px solid var(--gold);
+}
+
+.luxury-frame-corners::before {
+  top: 0;
+  left: 0;
+  border-right: none;
+  border-bottom: none;
+}
+
+.luxury-frame-corners::after {
+  bottom: 0;
+  right: 0;
+  border-left: none;
+  border-top: none;
+}
+
+.corner-decoration {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  border: 1px solid rgba(212, 175, 55, 0.5);
+}
+
+.corner-decoration--top-right {
+  top: 10px;
+  right: 10px;
+  border-left: none;
+  border-bottom: none;
+}
+
+.corner-decoration--bottom-left {
+  bottom: 10px;
+  left: 10px;
+  border-right: none;
+  border-top: none;
+}
+
+/* Rose Petal Decorations */
+.rose-decoration {
+  position: fixed;
+  width: 100px;
+  height: 100px;
+  opacity: 0.08;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.rose-decoration--1 {
+  top: 10%;
+  left: 5%;
+  background: radial-gradient(ellipse at center, var(--primary-light) 0%, transparent 70%);
+  transform: rotate(-30deg);
+  animation: rose-sway 8s ease-in-out infinite;
+}
+
+.rose-decoration--2 {
+  bottom: 15%;
+  right: 8%;
+  background: radial-gradient(ellipse at center, var(--accent) 0%, transparent 70%);
+  transform: rotate(45deg);
+  animation: rose-sway 10s ease-in-out infinite reverse;
+}
+
+@keyframes rose-sway {
+  0%, 100% { transform: rotate(-30deg) scale(1); }
+  50% { transform: rotate(-25deg) scale(1.1); }
+}
+
+/* Elegant Divider */
+.elegant-divider {
+  position: relative;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+.elegant-divider::before {
+  content: '✦';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--gradient-romantic);
+  padding: 0 15px;
+  color: var(--gold);
+  font-size: 12px;
+}
+
+/* Velvet Curtain Effect */
+.velvet-curtain-top {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: linear-gradient(180deg, rgba(26, 26, 46, 0.8) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 15;
+}
+
+.velvet-curtain-bottom {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: linear-gradient(0deg, rgba(26, 26, 46, 0.8) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 15;
+}
+
+/* Subtle Vignette */
+.vignette {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(0, 0, 0, 0.4) 100%);
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* Breathing Glow Orb */
+.glow-orb {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+  animation: orb-float 20s ease-in-out infinite;
+}
+
+.glow-orb--1 {
+  width: 400px;
+  height: 400px;
+  background: rgba(139, 0, 0, 0.15);
+  top: -100px;
+  left: -100px;
+}
+
+.glow-orb--2 {
+  width: 500px;
+  height: 500px;
+  background: rgba(212, 175, 55, 0.08);
+  bottom: -150px;
+  right: -150px;
+  animation-delay: -10s;
+}
+
+.glow-orb--3 {
+  width: 300px;
+  height: 300px;
+  background: rgba(224, 17, 95, 0.1);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: orb-pulse 15s ease-in-out infinite;
+}
+
+@keyframes orb-float {
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(30px, -20px); }
+  50% { transform: translate(-20px, 30px); }
+  75% { transform: translate(20px, 20px); }
+}
+
+@keyframes orb-pulse {
+  0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.2); }
+}

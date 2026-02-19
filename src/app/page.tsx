@@ -100,13 +100,57 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-romantic bg-stars overflow-hidden">
-      <div className="fixed inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-20 left-10 w-64 h-64 bg-[#8B0000]/10 rounded-full blur-3xl animate-float" />
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-[#E0115F]/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }} />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#D4AF37]/5 rounded-full blur-3xl animate-pulse-glow" />
+    <div className="min-h-screen bg-romantic bg-stars overflow-hidden relative">
+      {/* Glow Orbs */}
+      <div className="glow-orb glow-orb--1" />
+      <div className="glow-orb glow-orb--2" />
+      <div className="glow-orb glow-orb--3" />
+      
+      {/* Vignette Effect */}
+      <div className="vignette" />
+      
+      {/* Velvet Curtains */}
+      <div className="velvet-curtain-top" />
+      <div className="velvet-curtain-bottom" />
+      
+      {/* Lace Patterns */}
+      <div className="lace-top" />
+      <div className="lace-bottom" />
+      
+      {/* Ornate Corners */}
+      <div className="ornate-corner ornate-corner--top-left" />
+      <div className="ornate-corner ornate-corner--top-right" />
+      <div className="ornate-corner ornate-corner--bottom-left" />
+      <div className="ornate-corner ornate-corner--bottom-right" />
+      
+      {/* Luxurious Frame */}
+      <div className="luxury-frame" />
+      <div className="luxury-frame-corners" />
+      
+      {/* Rose Decorations */}
+      <div className="rose-decoration rose-decoration--1" />
+      <div className="rose-decoration rose-decoration--2" />
+      
+      {/* Floating Particles */}
+      <div className="particles-container">
+        <div className="particle" />
+        <div className="particle" />
+        <div className="particle" />
+        <div className="particle" />
+        <div className="particle" />
+        <div className="particle" />
+        <div className="particle" />
+        <div className="particle" />
+        <div className="particle" />
+        <div className="particle" />
+        <div className="particle" />
+        <div className="particle" />
+        <div className="particle" />
+        <div className="particle" />
+        <div className="particle" />
       </div>
 
+      {/* Main Content */}
       <div className="relative z-10">
         <AnimatePresence mode="wait">
           {quizState === 'landing' && (

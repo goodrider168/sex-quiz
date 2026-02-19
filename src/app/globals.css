@@ -1,26 +1,204 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --primary: #8B0000;
+  --primary-light: #B76E79;
+  --primary-dark: #5C0000;
+  --accent: #E0115F;
+  --accent-purple: #8B008B;
+  --bg-dark: #0D0D1A;
+  --bg-darker: #1A1A2E;
+  --bg-card: rgba(26, 26, 46, 0.85);
+  --text-primary: #FFFFF0;
+  --text-secondary: #F5DEB3;
+  --text-muted: #B8A082;
+  --gold: #D4AF37;
+  --gold-light: #F7E7CE;
+  --gold-dark: #AA8C2C;
+  --surface-elevated: rgba(45, 45, 70, 0.9);
+  --surface-glass: rgba(255, 255, 255, 0.05);
+  --border-gold: rgba(212, 175, 55, 0.4);
+  --gradient-romantic: linear-gradient(135deg, #1A1A2E 0%, #2D1B3D 50%, #1A1A2E 100%);
+  --gradient-gold: linear-gradient(135deg, #D4AF37 0%, #F7E7CE 50%, #D4AF37 100%);
+  --gradient-heart: linear-gradient(135deg, #8B0000 0%, #E0115F 100%);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+* { box-sizing: border-box; }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+html { scroll-behavior: smooth; }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--gradient-romantic);
+  color: var(--text-primary);
+  font-family: 'Montserrat', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
 }
+
+.bg-stars {
+  background-image: 
+    radial-gradient(2px 2px at 20px 30px, var(--gold-light), transparent),
+    radial-gradient(2px 2px at 40px 70px, var(--text-secondary), transparent),
+    radial-gradient(1px 1px at 90px 40px, var(--text-primary), transparent),
+    radial-gradient(2px 2px at 130px 80px, var(--gold), transparent),
+    radial-gradient(1px 1px at 160px 120px, var(--text-secondary), transparent);
+  background-size: 200px 200px;
+  animation: twinkle 8s ease-in-out infinite;
+}
+
+.bg-romantic {
+  background: 
+    radial-gradient(ellipse at 50% 0%, rgba(139, 0, 0, 0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 50%, rgba(212, 175, 55, 0.08) 0%, transparent 40%),
+    radial-gradient(ellipse at 20% 80%, rgba(139, 0, 139, 0.1) 0%, transparent 40%),
+    var(--gradient-romantic);
+}
+
+.gold-border {
+  position: relative;
+}
+
+.gold-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  background: var(--gradient-gold);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.gold-border-glow {
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.3), inset 0 0 20px rgba(212, 175, 55, 0.1);
+}
+
+.glass-card {
+  background: var(--surface-glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border-gold);
+}
+
+.btn-gold {
+  background: var(--gradient-gold);
+  color: var(--bg-dark);
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-gold:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 40px rgba(212, 175, 55, 0.4), 0 0 20px rgba(212, 175, 55, 0.2);
+}
+
+.btn-heart {
+  background: var(--gradient-heart);
+  color: var(--text-primary);
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-heart:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 15px 50px rgba(224, 17, 95, 0.4), 0 0 30px rgba(224, 17, 95, 0.2);
+}
+
+.text-gold {
+  background: var(--gradient-gold);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-romantic {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  line-height: 1.4;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(212, 175, 55, 0.3); }
+  50% { box-shadow: 0 0 40px rgba(212, 175, 55, 0.6), 0 0 60px rgba(224, 17, 95, 0.3); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.animate-float { animation: float 6s ease-in-out infinite; }
+.animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
+.animate-shimmer { background-size: 200% auto; animation: shimmer 3s linear infinite; }
+.animate-fade-in-up { animation: fade-in-up 0.8s ease-out forwards; }
+.animate-scale-in { animation: scale-in 0.5s ease-out forwards; }
+
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--bg-darker); }
+::-webkit-scrollbar-thumb { background: var(--gold-dark); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+
+::selection { background: rgba(212, 175, 55, 0.3); color: var(--text-primary); }
+*:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+
+.card-luxury {
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-luxury:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4), 0 0 30px rgba(212, 175, 55, 0.2);
+}
+
+.gradient-text-animate {
+  background: linear-gradient(90deg, var(--gold-light) 0%, var(--gold) 25%, var(--gold-light) 50%, var(--gold) 75%, var(--gold-light) 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 4s linear infinite;
+}
+
+.input-luxury {
+  background: var(--surface-glass);
+  border: 1px solid var(--border-gold);
+  color: var(--text-primary);
+  font-family: 'Montserrat', sans-serif;
+  transition: all 0.3s ease;
+}
+
+.input-luxury:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+}
+
+.input-luxury::placeholder { color: var(--text-muted); }

@@ -333,6 +333,14 @@ function ResultPage({ result, onRestart }: { result: QuizResult; onRestart: () =
         scale: 2,
         useCORS: true,
         logging: false,
+        onclone: (clonedDoc) => {
+          const clonedElement = clonedDoc.querySelector('[style*="position: absolute"]') as HTMLElement;
+          if (clonedElement) {
+            clonedElement.style.position = 'fixed';
+            clonedElement.style.left = '0';
+            clonedElement.style.top = '0';
+          }
+        },
       });
       
       const link = document.createElement('a');
@@ -353,7 +361,8 @@ function ResultPage({ result, onRestart }: { result: QuizResult; onRestart: () =
       animate={{ scale: 1, opacity: 1 }}
       className="min-h-screen overflow-y-auto py-12 px-4"
     >
-      <div ref={resultCardRef} className="max-w-2xl mx-auto bg-[#1A1A2E] p-6 rounded-2xl">
+      {/* 螢幕顯示的結果卡片 */}
+      <div className="max-w-2xl mx-auto">
         <motion.div
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
@@ -485,6 +494,178 @@ function ResultPage({ result, onRestart }: { result: QuizResult; onRestart: () =
             </button>
           </div>
         </motion.div>
+
+        {/* 隱藏的精緻結果卡片 - 用於生成圖片 */}
+        <div ref={resultCardRef} style={{ position: 'absolute', left: '-9999px', top: 0 }}>
+          <div style={{
+            width: '400px',
+            padding: '32px',
+            background: 'linear-gradient(135deg, #1A1A2E 0%, #2D1B3D 50%, #1A1A2E 100%)',
+            borderRadius: '16px',
+            position: 'relative',
+            overflow: 'hidden',
+          }}>
+            {/* 裝飾邊框 */}
+            <div style={{
+              position: 'absolute',
+              inset: '8px',
+              border: '1px solid rgba(212, 175, 55, 0.4)',
+              borderRadius: '12px',
+              pointerEvents: 'none',
+            }} />
+            
+            {/* 頂部裝飾 */}
+            <div style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              height: '60px',
+              background: 'linear-gradient(180deg, rgba(212, 175, 55, 0.1) 0%, transparent 100%)',
+              pointerEvents: 'none',
+            }} />
+            
+            {/* 標題區 */}
+            <div style={{ textAlign: 'center', marginBottom: '24px', position: 'relative' }}>
+              <div style={{
+                display: 'inline-block',
+                padding: '4px 16px',
+                borderRadius: '20px',
+                fontSize: '12px',
+                marginBottom: '12px',
+                backgroundColor: `${rankInfo.color}20`,
+                color: rankInfo.color,
+                border: `1px solid ${rankInfo.color}`,
+              }}>
+                {rankInfo.label}
+              </div>
+              
+              <h1 style={{
+                fontSize: '36px',
+                fontWeight: 'bold',
+                background: 'linear-gradient(135deg, #D4AF37 0%, #F7E7CE 50%, #D4AF37 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                marginBottom: '8px',
+                fontFamily: 'Playfair Display, serif',
+              }}>
+                {archetype.name}
+              </h1>
+              
+              <p style={{
+                fontSize: '18px',
+                color: '#F5DEB3',
+                fontFamily: 'Cormorant Garamond, serif',
+                marginBottom: '8px',
+              }}>
+                {archetype.nameEn}
+              </p>
+              
+              <p style={{ fontSize: '12px', color: '#B8A082' }}>
+                全台僅 {archetype.rarity}% 的人與你相同
+              </p>
+            </div>
+            
+            {/* 分隔線 */}
+            <div style={{
+              height: '1px',
+              background: 'linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.5), transparent)',
+              marginBottom: '20px',
+            }} />
+            
+            {/* 描述區 */}
+            <div style={{ marginBottom: '20px' }}>
+              <p style={{ fontSize: '14px', color: '#FFFFF0', lineHeight: '1.6', marginBottom: '16px' }}>
+                {archetype.description}
+              </p>
+              
+              <div style={{ marginBottom: '12px' }}>
+                <p style={{ fontSize: '12px', color: '#D4AF37', marginBottom: '8px' }}>核心特質</p>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                  {archetype.traits.map((trait, i) => (
+                    <span key={i} style={{
+                      padding: '4px 10px',
+                      borderRadius: '12px',
+                      fontSize: '11px',
+                      backgroundColor: 'rgba(212, 175, 55, 0.1)',
+                      color: '#F5DEB3',
+                      border: '1px solid rgba(212, 175, 55, 0.3)',
+                    }}>
+                      {trait}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              
+              <div>
+                <p style={{ fontSize: '12px', color: '#D4AF37', marginBottom: '8px' }}>理想伴侶</p>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                  {archetype.partnerMatch.map((match, i) => (
+                    <span key={i} style={{
+                      padding: '4px 10px',
+                      borderRadius: '12px',
+                      fontSize: '11px',
+                      backgroundColor: 'rgba(224, 17, 95, 0.1)',
+                      color: '#E0115F',
+                      border: '1px solid rgba(224, 17, 95, 0.3)',
+                    }}>
+                      {match}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+            
+            {/* 底部裝飾 */}
+            <div style={{
+              marginTop: '20px',
+              paddingTop: '16px',
+              borderTop: '1px solid rgba(212, 175, 55, 0.2)',
+              textAlign: 'center',
+            }}>
+              <p style={{ fontSize: '11px', color: '#B8A082', marginBottom: '4px' }}>性原型深度診斷</p>
+              <p style={{ fontSize: '10px', color: '#8B7355' }}>sex-quiz.vercel.app</p>
+            </div>
+            
+            {/* 角落裝飾 */}
+            <div style={{
+              position: 'absolute',
+              top: '12px',
+              left: '12px',
+              width: '20px',
+              height: '20px',
+              borderTop: '2px solid #D4AF37',
+              borderLeft: '2px solid #D4AF37',
+            }} />
+            <div style={{
+              position: 'absolute',
+              top: '12px',
+              right: '12px',
+              width: '20px',
+              height: '20px',
+              borderTop: '2px solid #D4AF37',
+              borderRight: '2px solid #D4AF37',
+            }} />
+            <div style={{
+              position: 'absolute',
+              bottom: '12px',
+              left: '12px',
+              width: '20px',
+              height: '20px',
+              borderBottom: '2px solid #D4AF37',
+              borderLeft: '2px solid #D4AF37',
+            }} />
+            <div style={{
+              position: 'absolute',
+              bottom: '12px',
+              right: '12px',
+              width: '20px',
+              height: '20px',
+              borderBottom: '2px solid #D4AF37',
+              borderRight: '2px solid #D4AF37',
+            }} />
+          </div>
+        </div>
 
         <motion.div
           initial={{ y: 30, opacity: 0 }}

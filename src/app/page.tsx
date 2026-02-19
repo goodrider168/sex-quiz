@@ -1,8 +1,9 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, ResponsiveContainer } from 'recharts';
+import html2canvas from 'html2canvas';
 import { quizQuestions, archetypes, badges, getRarityRank, rarityRankLabels, QuizResult, RadarData, Badge } from '@/data/quiz';
 
 type QuizState = 'landing' | 'quiz' | 'result';
@@ -317,8 +318,34 @@ function QuizPage({
 function ResultPage({ result, onRestart }: { result: QuizResult; onRestart: () => void }) {
   const { archetype, radarData, badges, rarityRank } = result;
   const rankInfo = rarityRankLabels[rarityRank];
+  const resultCardRef = useRef<HTMLDivElement>(null);
+  const [isGenerating, setIsGenerating] = useState(false);
 
   const shareText = `我的性原型是「${archetype.name}」！在全台僅 ${archetype.rarity}% 的人與我相同。你呢？`;
+
+  const handleDownloadImage = async () => {
+    if (!resultCardRef.current) return;
+    
+    setIsGenerating(true);
+    try {
+      const canvas = await html2canvas(resultCardRef.current, {
+        backgroundColor: '#1A1A2E',
+        scale: 2,
+        useCORS: true,
+        logging: false,
+      });
+      
+      const link = document.createElement('a');
+      link.download = `性原型診斷-${archetype.name}.png`;
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    } catch (error) {
+      console.error('生成圖片失敗:', error);
+      alert('生成圖片失敗，請稍後再試');
+    } finally {
+      setIsGenerating(false);
+    }
+  };
 
   return (
     <motion.div
@@ -326,7 +353,7 @@ function ResultPage({ result, onRestart }: { result: QuizResult; onRestart: () =
       animate={{ scale: 1, opacity: 1 }}
       className="min-h-screen overflow-y-auto py-12 px-4"
     >
-      <div className="max-w-2xl mx-auto">
+      <div ref={resultCardRef} className="max-w-2xl mx-auto bg-[#1A1A2E] p-6 rounded-2xl">
         <motion.div
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
@@ -447,20 +474,14 @@ function ResultPage({ result, onRestart }: { result: QuizResult; onRestart: () =
           transition={{ delay: 0.5 }}
           className="text-center mb-8"
         >
-          <p className="text-[#B8A082] mb-4">分享你的結果</p>
+          <p className="text-[#B8A082] mb-4">保存你的結果</p>
           <div className="flex justify-center gap-4">
             <button
-              onClick={() => {
-                if (navigator.share) {
-                  navigator.share({ title: '性原型診斷', text: shareText });
-                } else {
-                  navigator.clipboard.writeText(shareText);
-                  alert('已複製到剪貼簿！');
-                }
-              }}
-              className="btn-gold px-6 py-3 rounded-full"
+              onClick={handleDownloadImage}
+              disabled={isGenerating}
+              className="btn-gold px-6 py-3 rounded-full disabled:opacity-50"
             >
-              分享結果
+              {isGenerating ? '生成中...' : '下載結果圖片'}
             </button>
           </div>
         </motion.div>
